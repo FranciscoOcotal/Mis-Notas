@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <title>WebStorage</title>
+ 
+ <meta name="viewport" content="width=device-width">
+<style>
+ textarea{width:99%;border-radius:5px 4px 4px;margin-bottom:10px;padding:3px;}
+ li{list-style:none; border:1px solid #f1f1f1;padding:10px;}
+ nav {display:block;}
+ .tab {overflow: hidden;border: 1px solid #ccc;background-color: #f1f1f1;}
+ .tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+
+.tabcontent {
+  animation: fadeEffect 3s; }
+
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+</style>
+
+</head>
+<body onload="viewData()">
+ <nav class="tab"><button  onclick="openCity(event, 'tab-resultados')">Registros</button> </nav>
+ <div class="container">
+<textarea  id="nombre"  placeholder="Nota a Guardar" rows="10" />
+</textarea>
+<button onclick="saveData()">Guardar Datos</button>
+
+<button onclick="borrar()">Borrar Datos</button>
+</div>
+
+<div  id="tab-resultados" class="tabcontent">
+<ul id="resultados"></ul>
+</div>
+
+
+<script>
+ function saveData(){
+
+var numHits = localStorage.getItem("numHits");
+ if(!numHits) numHits=0;
+ else numHits = parseInt(numHits, 10);
+ numHits++;
+ n=numHits.toString();
+ 
+ localStorage.setItem("numHits",numHits);
+ var data=document.getElementById("nombre").value;
+ localStorage.setItem(n,data);
+ viewData();
+}
+
+
+function viewData() {
+  txt="";
+  for (i=1;i<100;i++){
+  txt+="<li>"+i+' -- '+localStorage.getItem(i)+"</li>";
+  if (localStorage.getItem(i)==null){ break}
+  else{continue}
+  }
+  document.getElementById("resultados").innerHTML=txt;}
+  
+  
+ function borrar(){localStorage.clear();}
+  
+  
+  
+
+  
+ 
+  
+ </script>
+</body>
+</html>
